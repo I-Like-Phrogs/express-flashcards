@@ -6,6 +6,7 @@ const port = 8000;
 const app = express();
 app.set("view engine", "ejs");
 app.use(express.static("public"));
+app.use(express.urlencoded());
 
 app.get("/cards", (req, res) => {
   res.render("categories", {
@@ -14,12 +15,10 @@ app.get("/cards", (req, res) => {
   });
 });
 
-app.get("/cards/categories/", (req, res) => {
+app.get("/cards/categories", (req, res) => {
   res.render("categories", {
     title: "Kategorie",
-    categories: Object.entries(card_categories).map(
-      ([id, category]) => category.name
-    ),
+    categories: flashcards.getCategorySummaries(),
   });
 });
 
@@ -62,6 +61,7 @@ app.post("/cards/:category_id/new", (req, res) => {
     }
   }
 });
+
 
 app.listen(port, () => {
   console.log(`Server listening on http://localhost:${port}`);

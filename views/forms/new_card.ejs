@@ -8,6 +8,9 @@
       required
       minlength="1"
       maxlength="500"
+      <% if (locals.front){ %>
+      value="<%= front %>"
+      <% }%>
     />
   </div>
   <div>
@@ -19,6 +22,9 @@
       required
       minlength="1"
       maxlength="500"
+      <% if (locals.back){ %>
+      value="<%= back %>"
+      <% }%>
     />
   </div>
   <div>

@@ -37,8 +37,31 @@ export function getCategory(categoryId) {
   return null;
 }
 
+export function addCard(categoryId, card) {
+  if (hasCategory(categoryId)) card_categories[categoryId].cards.push(card);
+}
+
+export function validateCardData(card) {
+  var errors = [];
+  var fields = ["front", "back"];
+  for (let field of fields) {
+    if (!card.hasOwnProperty(field)) errors.push(`Missing field '${field}'`);
+    else {
+      if (typeof card[field] != "string")
+        errors.push(`'${field}' expected to be string`);
+      else {
+        if (card[field].length < 1 || card[field].length > 500)
+          errors.push(`'${field}' expected length: 1-500`);
+      }
+    }
+  }
+  return errors;
+}
+
 export default {
   getCategorySummaries,
   hasCategory,
   getCategory,
+  addCard,
+  validateCardData,
 };
